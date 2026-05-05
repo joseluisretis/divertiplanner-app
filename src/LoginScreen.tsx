@@ -78,7 +78,7 @@ export default function LoginScreen() {
                     className="w-full h-[56px] px-gutter bg-surface-container-low border-none rounded-DEFAULT focus:ring-2 focus:ring-primary-container text-body-md transition-all placeholder:text-outline-variant"
                     id="password"
                     name="password"
-                    placeholder="........"
+                    placeholder="Contraseña"
                     type="password"
                   />
                   <button
@@ -93,7 +93,7 @@ export default function LoginScreen() {
               </div>
 
               <button
-                className="w-full h-[64px] bg-gradient-to-r from-primary to-secondary text-on-primary font-h3 text-h3 rounded-full bouncy-hover bouncy-active shadow-lg shadow-primary/20 transition-all mt-stack-lg"
+                className="w-full h-[64px] bg-linear-to-r from-primary to-secondary text-on-primary font-h3 text-h3 rounded-full bouncy-hover bouncy-active shadow-lg shadow-primary/20 transition-all mt-stack-lg"
                 type="submit"
               >
                 Acceder a la fiesta
