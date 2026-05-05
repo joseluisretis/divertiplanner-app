@@ -1,13 +1,20 @@
 import type { FormEvent } from "react";
+import { useRef } from "react";
 
 import logo from "./assets/logo.png";
+import { useAuthStore } from "./store/authStore";
 
 export default function LoginScreen() {
-  const handleLogin = (e: FormEvent) => {
+  const { login, isLoading, error, clearError } = useAuthStore();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    // Mock login logic
-    console.log("Login attempt...");
-    alert("Mock: Inicio de sesión exitoso");
+    clearError();
+    const email = emailRef.current?.value ?? "";
+    const password = passwordRef.current?.value ?? "";
+    await login(email, password);
   };
 
   return (
@@ -50,13 +57,17 @@ export default function LoginScreen() {
                   Usuario
                 </label>
                 <input
+                  ref={emailRef}
                   className="w-full h-[56px] px-gutter bg-surface-container-low border-none rounded-DEFAULT focus:ring-2 focus:ring-primary-container text-body-md transition-all placeholder:text-outline-variant"
                   id="email"
                   name="email"
                   placeholder="Nombre de usuario"
-                  type="email"
                 />
               </div>
+
+              {error && (
+                <p className="font-body-md text-error text-center">{error}</p>
+              )}
 
               <div className="space-y-unit">
                 <div className="flex justify-between items-center ml-unit">
@@ -75,6 +86,7 @@ export default function LoginScreen() {
                 </div>
                 <div className="relative">
                   <input
+                    ref={passwordRef}
                     className="w-full h-[56px] px-gutter bg-surface-container-low border-none rounded-DEFAULT focus:ring-2 focus:ring-primary-container text-body-md transition-all placeholder:text-outline-variant"
                     id="password"
                     name="password"
@@ -93,10 +105,11 @@ export default function LoginScreen() {
               </div>
 
               <button
-                className="w-full h-[64px] bg-linear-to-r from-primary to-secondary text-on-primary font-h3 text-h3 rounded-full bouncy-hover bouncy-active shadow-lg shadow-primary/20 transition-all mt-stack-lg"
+                className="w-full h-[64px] bg-linear-to-r from-primary to-secondary text-on-primary font-h3 text-h3 rounded-full bouncy-hover bouncy-active shadow-lg shadow-primary/20 transition-all mt-stack-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                disabled={isLoading}
                 type="submit"
               >
-                Acceder a la fiesta
+                {isLoading ? "Accediendo..." : "Acceder a la fiesta"}
               </button>
             </form>
           </div>
