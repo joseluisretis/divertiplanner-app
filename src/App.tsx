@@ -1,8 +1,10 @@
+import { Routes, Route } from 'react-router-dom'
+
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Party Pulse</h1>
-    </>
+    <Routes>
+      <Route path="/" element={<h1 className="text-3xl font-bold underline">Party Pulse</h1>} />
+    </Routes>
   );
 }
 
