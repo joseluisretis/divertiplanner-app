@@ -44,7 +44,7 @@ export default function LoginScreen() {
                 ¡Hola de nuevo!
               </h2> */}
               <p className="font-body-lg text-on-surface-variant">
-                Tu portal central para organizar celebraciones inolvidables.
+                Bienvenid@ a la app para organizar fiestas inolvidables.
               </p>
             </header>
 
@@ -64,10 +64,6 @@ export default function LoginScreen() {
                   placeholder="Nombre de usuario"
                 />
               </div>
-
-              {error && (
-                <p className="font-body-md text-error text-center">{error}</p>
-              )}
 
               <div className="space-y-unit">
                 <div className="flex justify-between items-center ml-unit">
@@ -103,6 +99,10 @@ export default function LoginScreen() {
                   </button>
                 </div>
               </div>
+
+              {error && (
+                <p className="font-body-md text-error text-center">{error}</p>
+              )}
 
               <button
                 className="w-full h-[64px] bg-linear-to-r from-primary to-secondary text-on-primary font-h3 text-h3 rounded-full bouncy-hover bouncy-active shadow-lg shadow-primary/20 transition-all mt-stack-lg disabled:opacity-60 disabled:cursor-not-allowed"

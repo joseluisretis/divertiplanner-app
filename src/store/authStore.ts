@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { AuthService } from "../services/auth.service";
+import { authService } from "../services";
 import type { User } from "../models/auth.model";
 
 interface AuthState {
@@ -30,7 +30,7 @@ export const useAuthStore = create<AuthState>()(
             throw new Error("Credenciales incompletas");
           }
 
-          const data = await AuthService.login({ 
+          const data = await authService.login({ 
             username: email, 
             password 
           });
@@ -67,7 +67,7 @@ export const useAuthStore = create<AuthState>()(
       clearError: () => set({ error: null }),
     }),
     {
-      name: "party-pulse-auth",
+      name: "divertiplanner-auth",
     }
   )
 );
