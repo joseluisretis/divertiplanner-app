@@ -1,14 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-}
+import { AuthService } from "../services/auth.service";
+import type { User } from "../models/auth.model";
 
 interface AuthState {
   user: User | null;
+  token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
@@ -21,6 +18,7 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
+      token: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
@@ -28,27 +26,42 @@ export const useAuthStore = create<AuthState>()(
       login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
         try {
-          // Mock login — replace with real API call
-          await new Promise((resolve) => setTimeout(resolve, 800));
-          if (password.length < 1) {
-            throw new Error("Contraseña requerida");
+          if (!email || !password) {
+            throw new Error("Credenciales incompletas");
           }
-          const mockUser: User = {
-            id: "1",
-            email,
-            name: email.split("@")[0],
+
+          const data = await AuthService.login({ 
+            username: email, 
+            password 
+          });
+
+          if (data.ok === false || !data.data) {
+            const errorMsg = Array.isArray(data.messages) ? data.messages[0] : data.messages;
+            throw new Error(errorMsg || "Credenciales inválidas");
+          }
+
+          const result = data.data;
+          const token = result.token || result.accessToken || null;
+          const userData = result.user;
+
+          const user: User = {
+            id: userData?.id || "1",
+            email: userData?.email || email,
+            name: userData?.name || email.split("@")[0],
+            role: userData?.role
           };
-          set({ user: mockUser, isAuthenticated: true, isLoading: false });
+
+          set({ user, token, isAuthenticated: true, isLoading: false });
         } catch (err) {
           set({
-            error: err instanceof Error ? err.message : "Error de autenticación",
+            error: err instanceof Error ? err.message : "Error de red",
             isLoading: false,
           });
         }
       },
 
       logout: () => {
-        set({ user: null, isAuthenticated: false, error: null });
+        set({ user: null, token: null, isAuthenticated: false, error: null });
       },
 
       clearError: () => set({ error: null }),
