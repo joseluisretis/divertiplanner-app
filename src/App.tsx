@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
-import Dashboard from "./Dashboard";
+import BandejaScreen from "./BandejaScreen";
 import { useAuthStore } from "./store/authStore";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
       />
       <Route
         path="/dashboard"
-        element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+        element={isAuthenticated ? <BandejaScreen /> : <Navigate to="/login" />}
       />
     </Routes>
   );

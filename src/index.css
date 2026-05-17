@@ -108,8 +108,11 @@
     transform: scale(1.02);
     box-shadow: 0 15px 45px rgba(164, 48, 115, 0.2);
   }
-  .bouncy-active:active {
-    transform: scale(0.98);
+  .bouncy-active:active, .bouncy-press:active {
+    transform: scale(0.95);
+  }
+  .ambient-shadow-purple {
+    box-shadow: 0 10px 30px -10px rgba(107, 56, 212, 0.3);
   }
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24;
