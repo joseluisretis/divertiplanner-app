@@ -28,4 +28,5 @@ export interface CreateEventDto {
   totalCost?: number;
   transportCost?: number;
   advancePayment?: number;
+  status?: EventItem["status"];
 }

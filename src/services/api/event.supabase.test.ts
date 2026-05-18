@@ -13,16 +13,39 @@ vi.mock('../../lib/supabase', () => ({
   },
 }))
 
+function mockSelectOrder(returnValue: { data: any; error: any }) {
+  const mockOrder = vi.fn().mockResolvedValue(returnValue)
+  vi.mocked(supabase.from).mockReturnValue({
+    select: vi.fn().mockReturnValue({ order: mockOrder }),
+  } as any)
+}
+
+function mockCreateEvent(clientError: any, eventError: any) {
+  const mockClientFrom = {
+    insert: vi.fn().mockReturnValue({
+      select: vi.fn().mockReturnValue({
+        single: vi.fn().mockResolvedValue({ data: { id: 'client-uuid' }, error: clientError }),
+      }),
+    }),
+  }
+  const mockEventFrom = {
+    insert: vi.fn().mockResolvedValue({ data: null, error: eventError }),
+  }
+  vi.mocked(supabase.from)
+    .mockReturnValueOnce(mockClientFrom as any)
+    .mockReturnValueOnce(mockEventFrom as any)
+}
+
 describe('EventSupabase', () => {
   let service: EventSupabase
 
   beforeEach(() => {
     service = new EventSupabase()
-    vi.clearAllMocks()
+    vi.resetAllMocks()
   })
 
   it('should return mapped events on success', async () => {
-    const mockOrder = vi.fn().mockResolvedValue({
+    mockSelectOrder({
       data: [
         {
           id: '1',
@@ -36,10 +59,6 @@ describe('EventSupabase', () => {
       ],
       error: null,
     })
-
-    vi.mocked(supabase.from).mockReturnValue({
-      select: vi.fn().mockReturnValue({ order: mockOrder }),
-    } as any)
 
     const result = await service.getEvents()
 
@@ -56,14 +75,7 @@ describe('EventSupabase', () => {
   })
 
   it('should return ok:false on supabase error', async () => {
-    const mockOrder = vi.fn().mockResolvedValue({
-      data: null,
-      error: { message: 'connection failed' },
-    })
-
-    vi.mocked(supabase.from).mockReturnValue({
-      select: vi.fn().mockReturnValue({ order: mockOrder }),
-    } as any)
+    mockSelectOrder({ data: null, error: { message: 'connection failed' } })
 
     const result = await service.getEvents()
 
@@ -72,15 +84,42 @@ describe('EventSupabase', () => {
   })
 
   it('should return empty array when no rows', async () => {
-    const mockOrder = vi.fn().mockResolvedValue({ data: null, error: null })
-
-    vi.mocked(supabase.from).mockReturnValue({
-      select: vi.fn().mockReturnValue({ order: mockOrder }),
-    } as any)
+    mockSelectOrder({ data: null, error: null })
 
     const result = await service.getEvents()
 
     expect(result.ok).toBe(true)
     expect(result.data).toEqual([])
+  })
+
+  it('should create event successfully', async () => {
+    mockCreateEvent(null, null)
+
+    const result = await service.createEvent({
+      eventName: 'Cumpleaños de Juan',
+      customerName: 'María López',
+      phone: '+51 999 888 777',
+      eventType: 'Cumpleaños',
+      address: 'Av. Principal 123',
+      totalCost: 500,
+    })
+
+    expect(result.ok).toBe(true)
+  })
+
+  it('should return ok:false when client insert fails', async () => {
+    mockCreateEvent({ message: 'client insert failed' }, null)
+
+    const result = await service.createEvent({ eventName: 'Evento X' })
+
+    expect(result.ok).toBe(false)
+  })
+
+  it('should return ok:false when event insert fails', async () => {
+    mockCreateEvent(null, { message: 'event insert failed' })
+
+    const result = await service.createEvent({ eventName: 'Evento X' })
+
+    expect(result.ok).toBe(false)
   })
 })

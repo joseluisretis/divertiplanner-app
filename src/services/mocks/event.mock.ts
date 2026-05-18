@@ -50,7 +50,28 @@ export class EventMock implements IEventService {
   async createEvent(data: CreateEventDto): Promise<{ ok: boolean }> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log("Mock Event Created:", data);
+        const clientData = {
+          name: data.customerName,
+          phone: data.phone ?? null,
+          email: data.email ?? null,
+        };
+        const eventData = {
+          title: data.eventName,
+          status: data.status ?? "PENDIENTE",
+          client_id: "mock-client-uuid",
+          event_type: data.eventType,
+          notes: data.eventDetails,
+          event_date: data.dateStr || null,
+          start_time: data.startTime || null,
+          duration_hours: data.duration ?? null,
+          location: data.address,
+          maps_url: data.locationUrl,
+          total_cost: data.totalCost,
+          mobility_cost: data.transportCost,
+          advance_payment: data.advancePayment,
+        };
+        console.log("[Mock] Client insert:", clientData);
+        console.log("[Mock] Event insert:", eventData);
         resolve({ ok: true });
       }, 800);
     });
