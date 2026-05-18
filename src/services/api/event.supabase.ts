@@ -35,7 +35,7 @@ export class EventSupabase implements IEventService {
       return { ok: false, data: [] };
     }
 
-    return { ok: true, data: (data as EventRow[]).map(mapRow) };
+    return { ok: true, data: (data as EventRow[] ?? []).map(mapRow) };
   }
 }
 
