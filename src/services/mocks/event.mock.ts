@@ -70,8 +70,13 @@ export class EventMock implements IEventService {
           mobility_cost: data.transportCost,
           advance_payment: data.advancePayment,
         };
+        const staffData = (data.staff ?? []).map((s) => ({
+          event_id: "mock-event-uuid",
+          employee_id: s.employeeId,
+        }));
         console.log("[Mock] Client insert:", clientData);
         console.log("[Mock] Event insert:", eventData);
+        console.log("[Mock] event_staff insert:", staffData);
         resolve({ ok: true });
       }, 800);
     });

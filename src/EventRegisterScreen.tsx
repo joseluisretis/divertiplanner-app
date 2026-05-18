@@ -83,6 +83,7 @@ export default function EventRegisterScreen() {
         totalCost: form.totalCost ? Number(form.totalCost) : undefined,
         transportCost: form.transportCost ? Number(form.transportCost) : undefined,
         advancePayment: form.advancePayment ? Number(form.advancePayment) : undefined,
+        staff: staff.map((s) => ({ employeeId: s.employeeId })),
       };
 
       const res = await eventService.createEvent(dto);

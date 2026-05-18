@@ -29,4 +29,5 @@ export interface CreateEventDto {
   transportCost?: number;
   advancePayment?: number;
   status?: EventItem["status"];
+  staff?: { employeeId: string }[];
 }

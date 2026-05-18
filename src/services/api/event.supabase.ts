@@ -54,25 +54,39 @@ export class EventSupabase implements IEventService {
       return { ok: false };
     }
 
-    const { error: eventError } = await supabase.from("events").insert({
-      title: data.eventName,
-      status: data.status ?? "PENDIENTE",
-      client_id: clientRow.id,
-      event_type: data.eventType,
-      notes: data.eventDetails,
-      event_date: data.dateStr || null,
-      start_time: data.startTime || null,
-      duration_hours: data.duration ?? null,
-      location: data.address,
-      maps_url: data.locationUrl,
-      total_cost: data.totalCost,
-      mobility_cost: data.transportCost,
-      advance_payment: data.advancePayment,
-    });
+    const { data: eventRow, error: eventError } = await supabase
+      .from("events")
+      .insert({
+        title: data.eventName,
+        status: data.status ?? "PENDIENTE",
+        client_id: clientRow.id,
+        event_type: data.eventType,
+        notes: data.eventDetails,
+        event_date: data.dateStr || null,
+        start_time: data.startTime || null,
+        duration_hours: data.duration ?? null,
+        location: data.address,
+        maps_url: data.locationUrl,
+        total_cost: data.totalCost,
+        mobility_cost: data.transportCost,
+        advance_payment: data.advancePayment,
+      })
+      .select("id")
+      .single();
 
     if (eventError) {
       console.error("Supabase createEvent (event) error:", eventError);
       return { ok: false };
+    }
+
+    if (data.staff && data.staff.length > 0) {
+      const { error: staffError } = await supabase.from("event_staff").insert(
+        data.staff.map((s) => ({ event_id: eventRow.id, employee_id: s.employeeId }))
+      );
+      if (staffError) {
+        console.error("Supabase createEvent (staff) error:", staffError);
+        return { ok: false };
+      }
     }
 
     return { ok: true };

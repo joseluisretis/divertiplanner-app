@@ -20,7 +20,7 @@ function mockSelectOrder(returnValue: { data: any; error: any }) {
   } as any)
 }
 
-function mockCreateEvent(clientError: any, eventError: any) {
+function mockCreateEvent(clientError: any, eventError: any, staffError: any = null) {
   const mockClientFrom = {
     insert: vi.fn().mockReturnValue({
       select: vi.fn().mockReturnValue({
@@ -29,11 +29,19 @@ function mockCreateEvent(clientError: any, eventError: any) {
     }),
   }
   const mockEventFrom = {
-    insert: vi.fn().mockResolvedValue({ data: null, error: eventError }),
+    insert: vi.fn().mockReturnValue({
+      select: vi.fn().mockReturnValue({
+        single: vi.fn().mockResolvedValue({ data: { id: 'event-uuid' }, error: eventError }),
+      }),
+    }),
+  }
+  const mockStaffFrom = {
+    insert: vi.fn().mockResolvedValue({ data: null, error: staffError }),
   }
   vi.mocked(supabase.from)
     .mockReturnValueOnce(mockClientFrom as any)
     .mockReturnValueOnce(mockEventFrom as any)
+    .mockReturnValueOnce(mockStaffFrom as any)
 }
 
 describe('EventSupabase', () => {
@@ -92,7 +100,7 @@ describe('EventSupabase', () => {
     expect(result.data).toEqual([])
   })
 
-  it('should create event successfully', async () => {
+  it('should create event without staff successfully', async () => {
     mockCreateEvent(null, null)
 
     const result = await service.createEvent({
@@ -102,6 +110,18 @@ describe('EventSupabase', () => {
       eventType: 'Cumpleaños',
       address: 'Av. Principal 123',
       totalCost: 500,
+    })
+
+    expect(result.ok).toBe(true)
+  })
+
+  it('should create event with staff successfully', async () => {
+    mockCreateEvent(null, null, null)
+
+    const result = await service.createEvent({
+      eventName: 'Cumpleaños de Juan',
+      customerName: 'María López',
+      staff: [{ employeeId: 'emp-1' }, { employeeId: 'emp-2' }],
     })
 
     expect(result.ok).toBe(true)
@@ -119,6 +139,17 @@ describe('EventSupabase', () => {
     mockCreateEvent(null, { message: 'event insert failed' })
 
     const result = await service.createEvent({ eventName: 'Evento X' })
+
+    expect(result.ok).toBe(false)
+  })
+
+  it('should return ok:false when staff insert fails', async () => {
+    mockCreateEvent(null, null, { message: 'staff insert failed' })
+
+    const result = await service.createEvent({
+      eventName: 'Evento X',
+      staff: [{ employeeId: 'emp-1' }],
+    })
 
     expect(result.ok).toBe(false)
   })

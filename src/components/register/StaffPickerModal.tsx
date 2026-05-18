@@ -24,11 +24,13 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [eventRole, setEventRole] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!isOpen) return;
     setSelectedId("");
     setEventRole("");
+    setSearch("");
     setIsLoading(true);
     employeeService.getEmployees().then((res) => {
       if (res.ok) setEmployees(res.data);
@@ -40,6 +42,9 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
 
   const canAdd = selectedId !== "" && eventRole !== "";
   const selectedEmployee = employees.find((e) => e.id === selectedId);
+  const filtered = employees.filter((e) =>
+    e.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleAdd = () => {
     if (!selectedEmployee || !eventRole) return;
@@ -65,6 +70,21 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
         <div className="flex-1 overflow-y-auto p-container-padding space-y-stack-md">
           <div>
             <p className="font-label-md text-on-surface-variant mb-stack-sm px-1">Selecciona un empleado</p>
+            <div className="flex items-center gap-2 bg-surface-container rounded-DEFAULT px-3 mb-stack-sm">
+              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">search</span>
+              <input
+                type="text"
+                placeholder="Buscar empleado..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="flex-1 bg-transparent border-none py-2.5 font-body-md text-on-surface placeholder:text-outline-variant focus:outline-none"
+              />
+              {search && (
+                <button onClick={() => setSearch("")} className="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-on-surface transition-colors">
+                  close
+                </button>
+              )}
+            </div>
             {isLoading ? (
               <div className="flex items-center justify-center py-8 text-on-surface-variant">
                 <span className="material-symbols-outlined animate-spin mr-2">progress_activity</span>
@@ -72,7 +92,10 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
               </div>
             ) : (
               <div className="space-y-2">
-                {employees.map((emp) => {
+                {filtered.length === 0 && (
+                  <p className="text-center text-on-surface-variant font-body-md py-4">Sin resultados.</p>
+                )}
+                {filtered.map((emp) => {
                   const isAdded = alreadyAdded.includes(emp.id);
                   const isSelected = selectedId === emp.id;
                   return (
