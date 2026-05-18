@@ -6,8 +6,8 @@ type EventRow = {
   id: string;
   title: string;
   status: EventItem["status"];
-  customer_name: string;
-  date_str: string;
+  clients: { name: string } | null;
+  event_date: string | null;
   location: string;
   is_featured: boolean;
 };
@@ -17,8 +17,8 @@ function mapRow(row: EventRow): EventItem {
     id: row.id,
     title: row.title,
     status: row.status,
-    customerName: row.customer_name,
-    dateStr: row.date_str,
+    customerName: row.clients?.name ?? "",
+    dateStr: row.event_date ?? "",
     location: row.location,
     isFeatured: row.is_featured,
   };
@@ -28,7 +28,7 @@ export class EventSupabase implements IEventService {
   async getEvents(): Promise<EventResponse> {
     const { data, error } = await supabase
       .from("events")
-      .select("*")
+      .select("*, clients(name)")
       .order("created_at", { ascending: false });
 
     if (error) {
