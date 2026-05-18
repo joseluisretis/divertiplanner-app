@@ -3,7 +3,7 @@ import type { IAuthService } from "../interfaces/IAuthService";
 
 export class AuthMock implements IAuthService {
   async login(credentials: SignInDto): Promise<AuthResponse> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         if (credentials.password === "error") {
           resolve({
