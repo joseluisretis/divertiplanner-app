@@ -1,73 +1,72 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { supabase } from "../lib/supabase";
 import { authService } from "../services";
 import type { User } from "../models/auth.model";
 
 interface AuthState {
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  login: (username: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
   clearError: () => void;
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      token: null,
-      isAuthenticated: false,
-      isLoading: false,
-      error: null,
-
-      login: async (email: string, password: string) => {
-        set({ isLoading: true, error: null });
-        try {
-          if (!email || !password) {
-            throw new Error("Credenciales incompletas");
-          }
-
-          const data = await authService.login({ 
-            username: email, 
-            password 
-          });
-
-          if (data.ok === false || !data.data) {
-            const errorMsg = Array.isArray(data.messages) ? data.messages[0] : data.messages;
-            throw new Error(errorMsg || "Credenciales inválidas");
-          }
-
-          const result = data.data;
-          const token = result.token || result.accessToken || null;
-          const userData = result.user;
-
-          const user: User = {
-            id: userData?.id || "1",
-            email: userData?.email || email,
-            name: userData?.name || email.split("@")[0],
-            role: userData?.role
-          };
-
-          set({ user, token, isAuthenticated: true, isLoading: false });
-        } catch (err) {
-          set({
-            error: err instanceof Error ? err.message : "Error de red",
-            isLoading: false,
-          });
-        }
-      },
-
-      logout: () => {
-        set({ user: null, token: null, isAuthenticated: false, error: null });
-      },
-
-      clearError: () => set({ error: null }),
-    }),
-    {
-      name: "divertiplanner-auth",
+export const useAuthStore = create<AuthState>()((set) => {
+  // Sincroniza el store con la sesión de Supabase automáticamente.
+  // INITIAL_SESSION dispara al crear el store y restaura la sesión existente en localStorage.
+  supabase.auth.onAuthStateChange((_event, session) => {
+    if (session?.user) {
+      const u = session.user;
+      set({
+        user: {
+          id: u.id,
+          email: u.email!,
+          name: u.user_metadata?.name ?? u.email!.split("@")[0],
+          role: u.user_metadata?.role,
+        },
+        isAuthenticated: true,
+        isLoading: false,
+      });
+    } else {
+      set({ user: null, isAuthenticated: false, isLoading: false });
     }
-  )
-);
+  });
+
+  return {
+    user: null,
+    isAuthenticated: false,
+    isLoading: true,
+    error: null,
+
+    login: async (username: string, password: string) => {
+      set({ isLoading: true, error: null });
+      try {
+        if (!username || !password) throw new Error("Credenciales incompletas");
+
+        const result = await authService.login({ username, password });
+
+        if (!result.ok) {
+          const msg = Array.isArray(result.messages)
+            ? result.messages[0]
+            : result.messages;
+          throw new Error(msg ?? "Credenciales inválidas");
+        }
+        // onAuthStateChange se encarga de actualizar user e isAuthenticated
+      } catch (err) {
+        set({
+          error: err instanceof Error ? err.message : "Error de red",
+          isLoading: false,
+        });
+      }
+    },
+
+    logout: async () => {
+      await authService.logout();
+      // onAuthStateChange se encarga de limpiar user e isAuthenticated
+    },
+
+    clearError: () => set({ error: null }),
+  };
+});

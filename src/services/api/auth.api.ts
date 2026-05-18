@@ -12,7 +12,11 @@ export class AuthApi implements IAuthService {
       },
       body: JSON.stringify(credentials),
     });
-    
+
     return response.json();
+  }
+
+  async logout(): Promise<void> {
+    // no-op: la API legacy no tiene endpoint de logout
   }
 }

@@ -20,12 +20,16 @@ export class AuthMock implements IAuthService {
                 id: "mock-1",
                 email: credentials.username,
                 name: credentials.username.split("@")[0],
-                role: "ADMIN"
-              }
-            }
+                role: "ADMIN",
+              },
+            },
           });
         }
       }, 800);
     });
+  }
+
+  async logout(): Promise<void> {
+    // no-op en modo mock
   }
 }
