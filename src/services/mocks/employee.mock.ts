@@ -8,10 +8,11 @@ export class EmployeeMock implements IEmployeeService {
         resolve({
           ok: true,
           data: [
-            { id: "1", name: "Carlos Mendoza", role: "MANAGER" },
+            { id: "1", name: "Carlos Mendoza", role: "STAFF" },
             { id: "2", name: "Elena Ramos", role: "STAFF" },
-            { id: "3", name: "Pedro Flores", role: "STAFF" },
-            { id: "4", name: "María Torres", role: "SUPERVISOR" },
+            { id: "3", name: "Lucía Vargas", role: "STAFF" },
+            { id: "4", name: "María Torres", role: "STAFF" },
+            { id: "5", name: "Pedro Flores", role: "STAFF" },
           ],
         });
       }, 300);
