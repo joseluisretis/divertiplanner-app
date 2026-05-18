@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function FloatingActionBtn() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -26,7 +28,9 @@ export default function FloatingActionBtn() {
             : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >
-        <button className="flex items-center gap-3 bg-white text-on-surface px-4 py-2 rounded-full shadow-lg border border-primary-fixed-dim hover:bg-surface-container-high transition-colors bouncy-press">
+        <button 
+          onClick={() => navigate('/register')}
+          className="flex items-center gap-3 bg-white text-on-surface px-4 py-2 rounded-full shadow-lg border border-primary-fixed-dim hover:bg-surface-container-high transition-colors bouncy-press">
           <span className="font-label-md">Registro por Formulario</span>
           <div className="w-10 h-10 bg-primary-fixed text-primary rounded-full flex items-center justify-center">
             <span className="material-symbols-outlined">description</span>

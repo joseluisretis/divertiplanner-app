@@ -114,6 +114,12 @@
   .ambient-shadow-purple {
     box-shadow: 0 10px 30px -10px rgba(107, 56, 212, 0.3);
   }
+  .ambient-shadow-primary {
+    box-shadow: 0 10px 30px -5px rgba(107, 56, 212, 0.15);
+  }
+  .ambient-shadow-secondary {
+    box-shadow: 0 10px 30px -5px rgba(164, 48, 115, 0.15);
+  }
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24;
   }
@@ -121,4 +127,15 @@
 
 body {
   min-height: max(884px, 100dvh);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface, #fef7ff);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-variant, #e7e0ed);
+  border-radius: 10px;
 }

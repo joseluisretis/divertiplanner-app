@@ -12,3 +12,20 @@ export interface EventResponse {
   ok: boolean;
   data: EventItem[];
 }
+
+export interface CreateEventDto {
+  customerName?: string;
+  phone?: string;
+  email?: string;
+  eventType?: string;
+  eventName?: string;
+  eventDetails?: string;
+  dateStr?: string;
+  startTime?: string;
+  duration?: number;
+  address?: string;
+  locationUrl?: string;
+  totalCost?: number;
+  transportCost?: number;
+  advancePayment?: number;
+}

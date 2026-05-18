@@ -1,4 +1,4 @@
-import type { EventResponse } from "../../models/event.model";
+import type { EventResponse, CreateEventDto } from "../../models/event.model";
 import type { IEventService } from "../interfaces/IEventService";
 
 export class EventMock implements IEventService {
@@ -44,6 +44,15 @@ export class EventMock implements IEventService {
           ]
         });
       }, 500);
+    });
+  }
+
+  async createEvent(data: CreateEventDto): Promise<{ ok: boolean }> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log("Mock Event Created:", data);
+        resolve({ ok: true });
+      }, 800);
     });
   }
 }
