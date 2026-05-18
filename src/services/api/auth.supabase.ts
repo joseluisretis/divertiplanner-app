@@ -3,9 +3,13 @@ import type { IAuthService } from "../interfaces/IAuthService";
 import type { SignInDto, AuthResponse } from "../../models/auth.model";
 
 export class AuthSupabase implements IAuthService {
+  private toEmail(username: string): string {
+    return username.includes("@") ? username : `${username}@divertiplanner.com`;
+  }
+
   async login(credentials: SignInDto): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: credentials.username,
+      email: this.toEmail(credentials.username),
       password: credentials.password,
     });
 
