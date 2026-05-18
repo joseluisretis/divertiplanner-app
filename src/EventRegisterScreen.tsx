@@ -8,6 +8,8 @@ import CostDataForm from "./components/register/CostDataForm";
 import RegisterSidebar from "./components/register/RegisterSidebar";
 import { eventService } from "./services";
 import type { CreateEventDto } from "./models/event.model";
+import type { StaffEntry } from "./models/employee.model";
+
 
 type FormState = {
   customerName: string;
@@ -45,9 +47,18 @@ const initialForm: FormState = {
 
 export default function EventRegisterScreen() {
   const [form, setForm] = useState<FormState>(initialForm);
+  const [staff, setStaff] = useState<StaffEntry[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const handleAddStaff = (entry: StaffEntry) => {
+    setStaff((prev) => [...prev, entry]);
+  };
+
+  const handleRemoveStaff = (employeeId: string) => {
+    setStaff((prev) => prev.filter((s) => s.employeeId !== employeeId));
+  };
 
   const updateForm = (fields: Partial<FormState>) => {
     setForm((prev) => ({ ...prev, ...fields }));
@@ -123,7 +134,11 @@ export default function EventRegisterScreen() {
               locationUrl={form.locationUrl}
               onChange={(f) => updateForm(f as Partial<FormState>)}
             />
-            <StaffDataForm />
+            <StaffDataForm
+              staff={staff}
+              onAdd={handleAddStaff}
+              onRemove={handleRemoveStaff}
+            />
             <CostDataForm
               totalCost={form.totalCost}
               transportCost={form.transportCost}
