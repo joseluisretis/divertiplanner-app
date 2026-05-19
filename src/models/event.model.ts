@@ -13,6 +13,43 @@ export interface EventResponse {
   data: EventItem[];
 }
 
+export interface EventDetailClient {
+  id: string;
+  name: string;
+  phone: string | null;
+  email: string | null;
+}
+
+export interface EventDetailStaff {
+  employeeId: string;
+  name: string;
+  role: string;
+}
+
+export interface EventDetail {
+  id: string;
+  title: string;
+  status: EventItem["status"];
+  eventType: string | null;
+  notes: string | null;
+  eventDate: string | null;
+  startTime: string | null;
+  durationHours: number | null;
+  location: string | null;
+  mapsUrl: string | null;
+  totalCost: number | null;
+  mobilityCost: number | null;
+  advancePayment: number | null;
+  isFeatured: boolean;
+  client: EventDetailClient | null;
+  staff: EventDetailStaff[];
+}
+
+export interface EventDetailResponse {
+  ok: boolean;
+  data: EventDetail | null;
+}
+
 export interface CreateEventDto {
   customerName?: string;
   phone?: string;

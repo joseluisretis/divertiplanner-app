@@ -1,4 +1,4 @@
-import type { EventResponse, CreateEventDto } from "../../models/event.model";
+import type { EventResponse, EventDetailResponse, CreateEventDto } from "../../models/event.model";
 import type { IEventService } from "../interfaces/IEventService";
 
 export class EventMock implements IEventService {
@@ -44,6 +44,42 @@ export class EventMock implements IEventService {
           ]
         });
       }, 500);
+    });
+  }
+
+  async getEventById(id: string): Promise<EventDetailResponse> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          ok: true,
+          data: {
+            id,
+            title: "Gran Gala de Magia Estelar",
+            status: "BORRADOR",
+            eventType: "Cumpleaños",
+            notes: "Temática espacial, globos plateados y azules.",
+            eventDate: "2023-10-24",
+            startTime: "18:00",
+            durationHours: 4,
+            location: "Av. Principal 123, Sala A",
+            mapsUrl: "https://goo.gl/maps/mock",
+            totalCost: 1250,
+            mobilityCost: 50,
+            advancePayment: 300,
+            isFeatured: true,
+            client: {
+              id: "mock-client-1",
+              name: "Familia Rodriguez",
+              phone: "+51 987 654 321",
+              email: "rodriguez@example.com",
+            },
+            staff: [
+              { employeeId: "1", name: "Carlos Mendoza", role: "STAFF" },
+              { employeeId: "2", name: "Elena Ramos", role: "STAFF" },
+            ],
+          },
+        });
+      }, 400);
     });
   }
 
