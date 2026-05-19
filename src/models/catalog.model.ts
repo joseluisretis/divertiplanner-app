@@ -1,7 +1,9 @@
-export enum CatalogCode {
-  TipoEvento   = "TIPO_EVENTO",
-  EstadoEvento = "ESTADO_EVENTO",
-}
+export const CatalogCode = {
+  TipoEvento:   "TIPO_EVENTO",
+  EstadoEvento: "ESTADO_EVENTO",
+} as const;
+
+export type CatalogCode = typeof CatalogCode[keyof typeof CatalogCode];
 
 export type CatalogDetail = {
   id: string;
