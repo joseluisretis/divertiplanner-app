@@ -1,4 +1,5 @@
 import type { EventItem } from "../../models/event.model";
+import { useNavigate } from "react-router-dom";
 
 const statusColors: Record<string, string> = {
   BORRADOR: "bg-slate-200 text-slate-700",
@@ -12,6 +13,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event }: EventCardProps) {
+  const navigate = useNavigate();
   const isFeatured = event.isFeatured;
   
   return (
@@ -38,7 +40,10 @@ export default function EventCard({ event }: EventCardProps) {
           </div>
         </div>
         <div className="flex gap-stack-sm mt-auto">
-          <button className="flex-1 py-3 px-6 bg-gradient-to-r from-primary to-secondary text-on-primary rounded-full font-label-md bouncy-press shadow-lg shadow-primary/20">
+          <button 
+            onClick={() => navigate(`/event/${event.id}`)}
+            className="flex-1 py-3 px-6 bg-gradient-to-r from-primary to-secondary text-on-primary rounded-full font-label-md bouncy-press shadow-lg shadow-primary/20"
+          >
             Ver detalles
           </button>
         </div>

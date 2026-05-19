@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
 import BandejaScreen from "./BandejaScreen";
 import EventRegisterScreen from "./EventRegisterScreen";
+import EventDetailScreen from "./EventDetailScreen";
 import { useAuthStore } from "./store/authStore";
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
       <Route
         path="/register"
         element={isAuthenticated ? <EventRegisterScreen /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/event/:id"
+        element={isAuthenticated ? <EventDetailScreen /> : <Navigate to="/login" />}
       />
     </Routes>
   );
