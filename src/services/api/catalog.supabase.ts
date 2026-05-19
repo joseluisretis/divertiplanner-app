@@ -13,10 +13,23 @@ type CatalogDetailRow = {
 
 export class CatalogSupabase implements ICatalogService {
   async getCatalogDetails(catalogCode: CatalogCode): Promise<CatalogDetailsResponse> {
+
+    const { data: catalog, error: catalogError } = await supabase
+      .from("catalogs")
+      .select("id")
+      .eq("code", catalogCode)
+      .eq("is_active", true)
+      .single();
+    console.log("Supabase getCatalogDetails:", catalog);
+    if (catalogError || !catalog) {
+      console.error("Supabase getCatalogDetails (catalog lookup) error:", catalogError);
+      return { ok: false, data: [] };
+    }
+  
     const { data, error } = await supabase
       .from("catalog_details")
-      .select("id, code, name, value, sequential, catalogs!inner(code)")
-      .eq("catalogs.code", catalogCode)
+      .select("id, code, name, value, sequential")
+      .eq("catalog_id", catalog.id)
       .eq("is_active", true)
       .order("sequential");
 
@@ -27,7 +40,7 @@ export class CatalogSupabase implements ICatalogService {
 
     return {
       ok: true,
-      data: (data ?? []).map((row: any): CatalogDetail => ({
+      data: (data ?? []).map((row: CatalogDetailRow): CatalogDetail => ({
         id: row.id,
         code: row.code,
         name: row.name,

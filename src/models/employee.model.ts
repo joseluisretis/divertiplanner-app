@@ -1,6 +1,7 @@
 export interface Employee {
   id: string;
   name: string;
+  shortName: string;
   role: "ADMIN" | "MANAGER" | "SUPERVISOR" | "STAFF";
 }
 
