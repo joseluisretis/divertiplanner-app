@@ -5,6 +5,7 @@ import type { Employee, EmployeesResponse } from "../../models/employee.model";
 type EmployeeRow = {
   id: string;
   name: string;
+  short_name: string;
   role: Employee["role"];
   is_active: boolean;
 };
@@ -13,7 +14,7 @@ export class EmployeeSupabase implements IEmployeeService {
   async getEmployees(): Promise<EmployeesResponse> {
     const { data, error } = await supabase
       .from("employees")
-      .select("id, name, role, is_active")
+      .select("id, name, short_name, role, is_active")
       .eq("is_active", true)
       .order("name");
 
@@ -26,6 +27,7 @@ export class EmployeeSupabase implements IEmployeeService {
       data: (data as EmployeeRow[] ?? []).map((row) => ({
         id: row.id,
         name: row.name,
+        shortName: row.short_name ?? row.name,
         role: row.role,
       })),
     };

@@ -28,12 +28,12 @@ export default function HeroSearch({ onOpenFilter }: HeroSearchProps) {
           </div>
           <button
             onClick={onOpenFilter}
-            className="p-4 bg-gradient-to-r from-primary to-secondary text-on-primary rounded-full bouncy-hover bouncy-press shadow-lg shadow-primary/20 flex items-center justify-center shrink-0"
+            className="p-4 bg-linear-to-r from-primary to-secondary text-on-primary rounded-full bouncy-hover bouncy-press shadow-lg shadow-primary/20 flex items-center justify-center shrink-0"
           >
             <span className="material-symbols-outlined">tune</span>
           </button>
         </div>
-        <div className="flex gap-stack-sm overflow-x-auto w-full pb-2 scrollbar-hide">
+        {/* <div className="flex gap-stack-sm overflow-x-auto w-full pb-2 scrollbar-hide">
           <button className="px-6 py-3 rounded-full bg-primary text-on-primary font-label-md whitespace-nowrap bouncy-press">
             Todos
           </button>
@@ -46,7 +46,7 @@ export default function HeroSearch({ onOpenFilter }: HeroSearchProps) {
           <button className="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label-md whitespace-nowrap bouncy-hover bouncy-press">
             Magia
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );
