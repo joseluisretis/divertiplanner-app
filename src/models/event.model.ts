@@ -3,9 +3,18 @@ export interface EventItem {
   title: string;
   status: 'BORRADOR' | 'PENDIENTE' | 'EN PROCESO' | 'TERMINADO';
   customerName: string;
-  dateStr: string; // Ejemplo: '24 de Octubre, 2023 • 18:00 - 4h'
+  dateStr: string;
   location: string;
   isFeatured?: boolean;
+  eventType?: string | null;
+  staffIds: string[];
+}
+
+export interface EventFilters {
+  date: string;
+  eventType: string;
+  estados: string[];
+  personalIds: string[];
 }
 
 export interface EventResponse {

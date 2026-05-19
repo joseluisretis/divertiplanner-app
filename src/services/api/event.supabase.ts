@@ -10,6 +10,8 @@ type EventRow = {
   event_date: string | null;
   location: string;
   is_featured: boolean;
+  event_type: string | null;
+  event_staff: { employee_id: string }[];
 };
 
 type EventDetailRow = {
@@ -40,6 +42,8 @@ function mapRow(row: EventRow): EventItem {
     dateStr: row.event_date ?? "",
     location: row.location,
     isFeatured: row.is_featured,
+    eventType: row.event_type ?? null,
+    staffIds: (row.event_staff ?? []).map((s) => s.employee_id),
   };
 }
 
@@ -74,7 +78,7 @@ export class EventSupabase implements IEventService {
   async getEvents(): Promise<EventResponse> {
     const { data, error } = await supabase
       .from("events")
-      .select("*, clients(name)")
+      .select("*, clients(name), event_staff(employee_id)")
       .order("created_at", { ascending: false });
 
     if (error) {

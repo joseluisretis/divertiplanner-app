@@ -2,19 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import { useCatalogStore } from "../../store/catalogStore";
 import { useEmployeeStore } from "../../store/employeeStore";
 import { CatalogCode } from "../../models/catalog.model";
+import type { EventFilters } from "../../models/event.model";
 
 interface FilterBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
+  onApply: (filters: EventFilters) => void;
 }
 
-export default function FilterBottomSheet({ isOpen, onClose }: FilterBottomSheetProps) {
+export default function FilterBottomSheet({ isOpen, onClose, onApply }: FilterBottomSheetProps) {
   const { details, fetchCatalog } = useCatalogStore();
   const tiposEvento = details[CatalogCode.TipoEvento] ?? [];
   const estadosEvento = details[CatalogCode.EstadoEvento] ?? [];
 
   const { employees, fetchEmployees } = useEmployeeStore();
 
+  const [date, setDate] = useState("");
+  const [eventType, setEventType] = useState("");
   const [selectedEstados, setSelectedEstados] = useState<string[]>([]);
   const [selectedPersonal, setSelectedPersonal] = useState<string[]>([]);
   const [personalSearch, setPersonalSearch] = useState("");
@@ -54,6 +58,21 @@ export default function FilterBottomSheet({ isOpen, onClose }: FilterBottomSheet
     setSelectedPersonal((prev) => prev.filter((v) => v !== id));
   }
 
+  function handleClear() {
+    setDate("");
+    setEventType("");
+    setSelectedEstados([]);
+    setSelectedPersonal([]);
+    setPersonalSearch("");
+    onApply({ date: "", eventType: "", estados: [], personalIds: [] });
+    onClose();
+  }
+
+  function handleApply() {
+    onApply({ date, eventType, estados: selectedEstados, personalIds: selectedPersonal });
+    onClose();
+  }
+
   const filteredEmployees = personalSearch.length >= 3
     ? employees.filter(
         (e) =>
@@ -79,12 +98,18 @@ export default function FilterBottomSheet({ isOpen, onClose }: FilterBottomSheet
             <label className="font-label-md block mb-2">Fecha</label>
             <input
               type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               className="w-full p-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary-container"
             />
           </div>
           <div>
             <label className="font-label-md block mb-2">Tipo de evento</label>
-            <select className="w-full p-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary-container">
+            <select
+              value={eventType}
+              onChange={(e) => setEventType(e.target.value)}
+              className="w-full p-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary-container"
+            >
               <option value="">Todos</option>
               {tiposEvento.map((tipo) => (
                 <option key={tipo.id} value={tipo.value}>{tipo.name}</option>
@@ -152,13 +177,13 @@ export default function FilterBottomSheet({ isOpen, onClose }: FilterBottomSheet
           <div className="pt-4 flex gap-4">
             <button
               className="flex-1 py-4 border border-primary text-primary rounded-full font-label-md bouncy-press"
-              onClick={() => { setSelectedEstados([]); setSelectedPersonal([]); setPersonalSearch(""); onClose(); }}
+              onClick={handleClear}
             >
               Limpiar
             </button>
             <button
               className="flex-1 py-4 bg-primary text-on-primary rounded-full font-label-md bouncy-press shadow-lg shadow-primary/20"
-              onClick={onClose}
+              onClick={handleApply}
             >
               Aplicar Filtros
             </button>
