@@ -153,4 +153,68 @@ describe('EventSupabase', () => {
 
     expect(result.ok).toBe(false)
   })
+
+  // updateEvent helpers
+  function mockUpdateEvent(clientError: any, eventError: any, deleteError: any = null, staffError: any = null) {
+    const mockClientFrom = {
+      update: vi.fn().mockReturnValue({
+        eq: vi.fn().mockResolvedValue({ error: clientError }),
+      }),
+    }
+    const mockEventFrom = {
+      update: vi.fn().mockReturnValue({
+        eq: vi.fn().mockResolvedValue({ error: eventError }),
+      }),
+    }
+    const mockDeleteFrom = {
+      delete: vi.fn().mockReturnValue({
+        eq: vi.fn().mockResolvedValue({ error: deleteError }),
+      }),
+    }
+    const mockStaffInsertFrom = {
+      insert: vi.fn().mockResolvedValue({ error: staffError }),
+    }
+    vi.mocked(supabase.from)
+      .mockReturnValueOnce(mockClientFrom as any)
+      .mockReturnValueOnce(mockEventFrom as any)
+      .mockReturnValueOnce(mockDeleteFrom as any)
+      .mockReturnValueOnce(mockStaffInsertFrom as any)
+  }
+
+  it('should update event successfully', async () => {
+    mockUpdateEvent(null, null, null, null)
+
+    const result = await service.updateEvent('event-uuid', {
+      clientId: 'client-uuid',
+      customerName: 'María López',
+      eventName: 'Cumpleaños Actualizado',
+      staff: [{ employeeId: 'emp-1' }],
+    })
+
+    expect(result.ok).toBe(true)
+  })
+
+  it('should return ok:false when client update fails', async () => {
+    mockUpdateEvent({ message: 'client update failed' }, null)
+
+    const result = await service.updateEvent('event-uuid', { clientId: 'client-uuid' })
+
+    expect(result.ok).toBe(false)
+  })
+
+  it('should return ok:false when event update fails', async () => {
+    mockUpdateEvent(null, { message: 'event update failed' })
+
+    const result = await service.updateEvent('event-uuid', { clientId: 'client-uuid' })
+
+    expect(result.ok).toBe(false)
+  })
+
+  it('should return ok:false when staff delete fails', async () => {
+    mockUpdateEvent(null, null, { message: 'delete failed' })
+
+    const result = await service.updateEvent('event-uuid', { clientId: 'client-uuid' })
+
+    expect(result.ok).toBe(false)
+  })
 })
