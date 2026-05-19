@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import logo from "./assets/logo.png";
 import { useAuthStore } from "./store/authStore";
@@ -8,6 +8,7 @@ export default function LoginScreen() {
   const { login, isLoading, error, clearError } = useAuthStore();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -87,14 +88,15 @@ export default function LoginScreen() {
                     id="password"
                     name="password"
                     placeholder="Contraseña"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                   />
                   <button
                     className="absolute right-gutter top-1/2 -translate-y-1/2 text-outline"
                     type="button"
+                    onClick={() => setShowPassword(!showPassword)}
                   >
                     <span className="material-symbols-outlined">
-                      visibility
+                      {showPassword ? "visibility_off" : "visibility"}
                     </span>
                   </button>
                 </div>
