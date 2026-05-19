@@ -220,7 +220,10 @@ export default function EventDetailScreen() {
 
             {/* Actions */}
             <div className="flex flex-col gap-3">
-              <button className="w-full bg-linear-to-r from-violet-600 to-pink-500 text-white font-label-md py-4 rounded-full shadow-lg bouncy-hover active:scale-95 flex items-center justify-center gap-2">
+              <button
+                onClick={() => navigate(`/event/${event.id}/edit`)}
+                className="w-full bg-linear-to-r from-violet-600 to-pink-500 text-white font-label-md py-4 rounded-full shadow-lg bouncy-hover active:scale-95 flex items-center justify-center gap-2"
+              >
                 <span className="material-symbols-outlined">edit</span>
                 Editar Evento
               </button>

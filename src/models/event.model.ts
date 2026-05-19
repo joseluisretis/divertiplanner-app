@@ -68,3 +68,7 @@ export interface CreateEventDto {
   status?: EventItem["status"];
   staff?: { employeeId: string }[];
 }
+
+export interface UpdateEventDto extends CreateEventDto {
+  clientId: string;
+}

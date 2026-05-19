@@ -1,4 +1,4 @@
-import type { EventResponse, EventDetailResponse, CreateEventDto } from "../../models/event.model";
+import type { EventResponse, EventDetailResponse, CreateEventDto, UpdateEventDto } from "../../models/event.model";
 import type { IEventService } from "../interfaces/IEventService";
 
 export class EventMock implements IEventService {
@@ -80,6 +80,22 @@ export class EventMock implements IEventService {
           },
         });
       }, 400);
+    });
+  }
+
+  async updateEvent(id: string, data: UpdateEventDto): Promise<{ ok: boolean }> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log("[Mock] Client update (id:", data.clientId, "):", { name: data.customerName, phone: data.phone, email: data.email });
+        console.log("[Mock] Event update (id:", id, "):", {
+          title: data.eventName, status: data.status, event_type: data.eventType,
+          notes: data.eventDetails, event_date: data.dateStr, start_time: data.startTime,
+          duration_hours: data.duration, location: data.address, maps_url: data.locationUrl,
+          total_cost: data.totalCost, mobility_cost: data.transportCost, advance_payment: data.advancePayment,
+        });
+        console.log("[Mock] event_staff replace:", (data.staff ?? []).map((s) => ({ event_id: id, employee_id: s.employeeId })));
+        resolve({ ok: true });
+      }, 800);
     });
   }
 

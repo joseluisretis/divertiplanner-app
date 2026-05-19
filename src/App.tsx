@@ -32,6 +32,10 @@ function App() {
         path="/event/:id"
         element={isAuthenticated ? <EventDetailScreen /> : <Navigate to="/login" />}
       />
+      <Route
+        path="/event/:id/edit"
+        element={isAuthenticated ? <EventRegisterScreen /> : <Navigate to="/login" />}
+      />
     </Routes>
   );
 }

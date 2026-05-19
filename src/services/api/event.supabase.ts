@@ -1,6 +1,6 @@
 import { supabase } from "../../lib/supabase";
 import type { IEventService } from "../interfaces/IEventService";
-import type { EventItem, EventResponse, EventDetail, EventDetailResponse, CreateEventDto } from "../../models/event.model";
+import type { EventItem, EventResponse, EventDetail, EventDetailResponse, CreateEventDto, UpdateEventDto } from "../../models/event.model";
 
 type EventRow = {
   id: string;
@@ -153,6 +153,68 @@ export class EventSupabase implements IEventService {
       );
       if (staffError) {
         console.error("Supabase createEvent (staff) error:", staffError);
+        return { ok: false };
+      }
+    }
+
+    return { ok: true };
+  }
+
+  async updateEvent(id: string, data: UpdateEventDto): Promise<{ ok: boolean }> {
+    const { error: clientError } = await supabase
+      .from("clients")
+      .update({
+        name: data.customerName,
+        phone: data.phone ?? null,
+        email: data.email ?? null,
+      })
+      .eq("id", data.clientId);
+
+    if (clientError) {
+      console.error("Supabase updateEvent (client) error:", clientError);
+      return { ok: false };
+    }
+
+    const { error: eventError } = await supabase
+      .from("events")
+      .update({
+        title: data.eventName,
+        status: data.status,
+        event_type: data.eventType,
+        notes: data.eventDetails,
+        event_date: data.dateStr || null,
+        start_time: data.startTime || null,
+        duration_hours: data.duration ?? null,
+        location: data.address,
+        maps_url: data.locationUrl,
+        total_cost: data.totalCost,
+        mobility_cost: data.transportCost,
+        advance_payment: data.advancePayment,
+      })
+      .eq("id", id);
+
+    if (eventError) {
+      console.error("Supabase updateEvent (event) error:", eventError);
+      return { ok: false };
+    }
+
+    const { error: deleteError } = await supabase
+      .from("event_staff")
+      .delete()
+      .eq("event_id", id);
+
+    if (deleteError) {
+      console.error("Supabase updateEvent (staff delete) error:", deleteError);
+      return { ok: false };
+    }
+
+    if (data.staff && data.staff.length > 0) {
+      const { error: staffError } = await supabase
+        .from("event_staff")
+        .insert(data.staff.map((s) => ({ event_id: id, employee_id: s.employeeId })));
+
+      if (staffError) {
+        console.error("Supabase updateEvent (staff insert) error:", staffError);
         return { ok: false };
       }
     }
