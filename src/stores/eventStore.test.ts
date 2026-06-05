@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useEventStore } from './eventStore'
-import { supabase } from '../lib/supabase'
+import { supabase } from '../services/supabase/supabase'
 
 vi.mock('../lib/supabase', () => ({
   supabase: {

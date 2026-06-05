@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../supabase/supabase";
 import type { ICatalogService } from "../interfaces/ICatalogService";
 import type { CatalogDetail, CatalogDetailsResponse } from "../../models/catalog.model";
 import { CatalogCode } from "../../models/catalog.model";
@@ -25,7 +25,7 @@ export class CatalogSupabase implements ICatalogService {
       console.error("Supabase getCatalogDetails (catalog lookup) error:", catalogError);
       return { ok: false, data: [] };
     }
-  
+
     const { data, error } = await supabase
       .from("catalog_details")
       .select("id, code, name, value, sequential")

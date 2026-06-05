@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../services/supabase/supabase";
 import { eventService } from "../services";
 import { mapRow } from "../services/api/event.supabase";
 import type { EventItem } from "../models/event.model";

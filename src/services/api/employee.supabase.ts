@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../supabase/supabase";
 import type { IEmployeeService } from "../interfaces/IEmployeeService";
 import type { Employee, EmployeesResponse } from "../../models/employee.model";
 

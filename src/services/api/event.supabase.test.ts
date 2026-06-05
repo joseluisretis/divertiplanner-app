@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { supabase } from '../../lib/supabase'
+import { supabase } from '../supabase/supabase'
 import { EventSupabase } from './event.supabase'
 
 vi.mock('../../lib/supabase', () => ({

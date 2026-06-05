@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../services/supabase/supabase";
 import { authService } from "../services";
 import type { User } from "../models/auth.model";
 

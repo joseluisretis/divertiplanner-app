@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../supabase/supabase";
 import type { IEventService } from "../interfaces/IEventService";
 import type { EventItem, EventResponse, EventDetail, EventDetailResponse, CreateEventDto, UpdateEventDto } from "../../models/event.model";
 

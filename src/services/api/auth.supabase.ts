@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../supabase/supabase";
 import type { IAuthService } from "../interfaces/IAuthService";
 import type { SignInDto, AuthResponse } from "../../models/auth.model";
 
