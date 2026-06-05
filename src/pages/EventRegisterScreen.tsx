@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TopAppBar from "./components/shared/TopAppBar";
-import ClientDataForm from "./components/register/ClientDataForm";
-import EventDataForm from "./components/register/EventDataForm";
-import StaffDataForm from "./components/register/StaffDataForm";
-import CostDataForm from "./components/register/CostDataForm";
-import RegisterSidebar from "./components/register/RegisterSidebar";
-import { eventService } from "./services";
-import type { CreateEventDto, UpdateEventDto } from "./models/event.model";
-import type { StaffEntry } from "./models/employee.model";
+import TopAppBar from "../components/shared/TopAppBar";
+import ClientDataForm from "../components/register/ClientDataForm";
+import EventDataForm from "../components/register/EventDataForm";
+import StaffDataForm from "../components/register/StaffDataForm";
+import CostDataForm from "../components/register/CostDataForm";
+import RegisterSidebar from "../components/register/RegisterSidebar";
+import { eventService } from "../services";
+import type { CreateEventDto, UpdateEventDto } from "../models/event.model";
+import type { StaffEntry } from "../models/employee.model";
 
 type FormState = {
   customerName: string;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import TopAppBar from "./components/shared/TopAppBar";
-import HeroSearch from "./components/bandeja/HeroSearch";
-import EventGrid from "./components/bandeja/EventGrid";
-import FloatingActionBtn from "./components/bandeja/FloatingActionBtn";
-import FilterBottomSheet from "./components/bandeja/FilterBottomSheet";
-import { useEventStore } from "./store/eventStore";
-import type { EventFilters } from "./models/event.model";
+import TopAppBar from "../components/shared/TopAppBar";
+import HeroSearch from "../components/bandeja/HeroSearch";
+import EventGrid from "../components/bandeja/EventGrid";
+import FloatingActionBtn from "../components/bandeja/FloatingActionBtn";
+import FilterBottomSheet from "../components/bandeja/FilterBottomSheet";
+import { useEventStore } from "../stores/eventStore";
+import type { EventFilters } from "../models/event.model";
 
 const EMPTY_FILTERS: EventFilters = { date: "", eventType: "", estados: [], personalIds: [] };
 

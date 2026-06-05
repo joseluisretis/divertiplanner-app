@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import LoginScreen from "./LoginScreen";
-import BandejaScreen from "./BandejaScreen";
-import EventRegisterScreen from "./EventRegisterScreen";
-import EventDetailScreen from "./EventDetailScreen";
-import { useAuthStore } from "./store/authStore";
+import LoginScreen from "./pages/LoginScreen";
+import BandejaScreen from "./pages/BandejaScreen";
+import EventRegisterScreen from "./pages/EventRegisterScreen";
+import EventDetailScreen from "./pages/EventDetailScreen";
+import { useAuthStore } from "./stores/authStore";
 
 function App() {
   const { isAuthenticated } = useAuthStore();
