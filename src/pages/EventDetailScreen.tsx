@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TopAppBar from "./components/shared/TopAppBar";
-import { eventService } from "./services";
-import type { EventDetail } from "./models/event.model";
+import TopAppBar from "../components/shared/TopAppBar";
+import { eventService } from "../services";
+import type { EventDetail } from "../models/event.model";
 
 const statusColors: Record<string, string> = {
   BORRADOR: "bg-slate-200 text-slate-700",

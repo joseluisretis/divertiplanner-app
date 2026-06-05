@@ -1,8 +1,8 @@
 import type { FormEvent } from "react";
 import { useRef, useState } from "react";
 
-import logo from "./assets/logo.png";
-import { useAuthStore } from "./store/authStore";
+import logo from "../assets/logo.png";
+import { useAuthStore } from "../stores/authStore";
 
 export default function LoginScreen() {
   const { login, isLoading, error, clearError } = useAuthStore();

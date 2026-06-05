@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
-import { useAuthStore } from "../../store/authStore";
+import { useAuthStore } from "../../stores/authStore";
 
 export default function TopAppBar() {
   const [menuOpen, setMenuOpen] = useState(false);

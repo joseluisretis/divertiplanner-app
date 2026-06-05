@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useCatalogStore } from "../../store/catalogStore";
-import { useEmployeeStore } from "../../store/employeeStore";
+import { useCatalogStore } from "../../stores/catalogStore";
+import { useEmployeeStore } from "../../stores/employeeStore";
 import { CatalogCode } from "../../models/catalog.model";
 import type { EventFilters } from "../../models/event.model";
 
