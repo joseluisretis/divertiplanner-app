@@ -19,7 +19,7 @@ export default function FloatingActionBtn() {
   return (
     <div
       ref={menuRef}
-      className="fixed bottom-8 right-8 flex flex-col items-end gap-3 z-50"
+      className="fixed bottom-24 right-container-margin flex flex-col items-end gap-3 z-50"
     >
       <div
         className={`flex flex-col items-end gap-3 transition-all duration-300 ${
@@ -45,10 +45,10 @@ export default function FloatingActionBtn() {
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 bg-linear-to-tr from-primary to-secondary text-on-primary rounded-full shadow-[0_10px_30px_rgba(107,56,212,0.4)] flex items-center justify-center bouncy-hover bouncy-press"
+        className="fixed bottom-24 right-container-margin w-16 h-16 bg-primary-container text-on-primary rounded-full flex items-center justify-center shadow-xl shadow-secondary/30 z-50 transition-transform active:scale-90 duration-200"
       >
         <span
-          className={`material-symbols-outlined text-3xl transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+          className={`material-symbols-outlined text-[32px] transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
         >
           add
         </span>

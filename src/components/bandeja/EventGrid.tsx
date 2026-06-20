@@ -12,7 +12,7 @@ export default function EventGrid({ events, isLoading }: EventGridProps) {
   }
   
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-stack-lg">
+    <div className="grid grid-cols-1 gap-gutter">
       {events.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}

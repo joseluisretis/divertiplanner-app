@@ -1,165 +1,160 @@
 ---
-name: Joyful Celebration
+name: Medire+
 colors:
-  surface: '#fef7ff'
-  surface-dim: '#ded7e4'
-  surface-bright: '#fef7ff'
+  surface: '#faf8ff'
+  surface-dim: '#d2d9f4'
+  surface-bright: '#faf8ff'
   surface-container-lowest: '#ffffff'
-  surface-container-low: '#f8f1fe'
-  surface-container: '#f3ebf8'
-  surface-container-high: '#ede5f3'
-  surface-container-highest: '#e7e0ed'
-  on-surface: '#1d1a23'
-  on-surface-variant: '#494454'
-  inverse-surface: '#322f39'
-  inverse-on-surface: '#f5eefb'
-  outline: '#7b7486'
-  outline-variant: '#cbc3d7'
-  surface-tint: '#6d3bd7'
-  primary: '#6b38d4'
+  surface-container-low: '#f2f3ff'
+  surface-container: '#eaedff'
+  surface-container-high: '#e2e7ff'
+  surface-container-highest: '#dae2fd'
+  on-surface: '#131b2e'
+  on-surface-variant: '#414753'
+  inverse-surface: '#283044'
+  inverse-on-surface: '#eef0ff'
+  outline: '#717785'
+  outline-variant: '#c1c6d5'
+  surface-tint: '#005eb4'
+  primary: '#005eb4'
   on-primary: '#ffffff'
-  primary-container: '#8455ef'
-  on-primary-container: '#fffbff'
-  inverse-primary: '#d0bcff'
-  secondary: '#a43073'
+  primary-container: '#3891ff'
+  on-primary-container: '#002a56'
+  inverse-primary: '#a8c8ff'
+  secondary: '#b90538'
   on-secondary: '#ffffff'
-  secondary-container: '#fc79bd'
-  on-secondary-container: '#76014e'
-  tertiary: '#735c00'
+  secondary-container: '#dc2c4f'
+  on-secondary-container: '#fffbff'
+  tertiary: '#795900'
   on-tertiary: '#ffffff'
-  tertiary-container: '#cea700'
-  on-tertiary-container: '#4e3e00'
+  tertiary-container: '#b98a00'
+  on-tertiary-container: '#382800'
   error: '#ba1a1a'
   on-error: '#ffffff'
   error-container: '#ffdad6'
   on-error-container: '#93000a'
-  primary-fixed: '#e9ddff'
-  primary-fixed-dim: '#d0bcff'
-  on-primary-fixed: '#23005c'
-  on-primary-fixed-variant: '#5516be'
-  secondary-fixed: '#ffd8e7'
-  secondary-fixed-dim: '#ffafd3'
-  on-secondary-fixed: '#3d0026'
-  on-secondary-fixed-variant: '#85145a'
-  tertiary-fixed: '#ffe083'
-  tertiary-fixed-dim: '#eec200'
-  on-tertiary-fixed: '#231b00'
-  on-tertiary-fixed-variant: '#574500'
-  background: '#fef7ff'
-  on-background: '#1d1a23'
-  surface-variant: '#e7e0ed'
+  primary-fixed: '#d6e3ff'
+  primary-fixed-dim: '#a8c8ff'
+  on-primary-fixed: '#001b3c'
+  on-primary-fixed-variant: '#00468a'
+  secondary-fixed: '#ffdadb'
+  secondary-fixed-dim: '#ffb2b7'
+  on-secondary-fixed: '#40000d'
+  on-secondary-fixed-variant: '#92002a'
+  tertiary-fixed: '#ffdf9f'
+  tertiary-fixed-dim: '#f9bd22'
+  on-tertiary-fixed: '#261a00'
+  on-tertiary-fixed-variant: '#5c4300'
+  background: '#faf8ff'
+  on-background: '#131b2e'
+  surface-variant: '#dae2fd'
 typography:
-  h1:
+  headline-xl:
     fontFamily: Plus Jakarta Sans
     fontSize: 40px
     fontWeight: '800'
-    lineHeight: '1.2'
+    lineHeight: 48px
     letterSpacing: -0.02em
-  h2:
+  headline-lg:
     fontFamily: Plus Jakarta Sans
     fontSize: 32px
     fontWeight: '700'
-    lineHeight: '1.2'
+    lineHeight: 40px
     letterSpacing: -0.01em
-  h3:
+  headline-lg-mobile:
     fontFamily: Plus Jakarta Sans
-    fontSize: 24px
+    fontSize: 28px
     fontWeight: '700'
-    lineHeight: '1.3'
-  body-lg:
-    fontFamily: Plus Jakarta Sans
-    fontSize: 18px
-    fontWeight: '400'
-    lineHeight: '1.6'
+    lineHeight: 36px
   body-md:
     fontFamily: Plus Jakarta Sans
     fontSize: 16px
     fontWeight: '400'
-    lineHeight: '1.6'
+    lineHeight: 24px
   label-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Manrope
     fontSize: 14px
     fontWeight: '600'
-    lineHeight: '1.2'
-  label-sm:
+    lineHeight: 20px
+    letterSpacing: 0.01em
+  button:
     fontFamily: Plus Jakarta Sans
-    fontSize: 12px
+    fontSize: 16px
     fontWeight: '700'
-    lineHeight: '1.2'
+    lineHeight: 24px
 rounded:
-  sm: 0.5rem
-  DEFAULT: 1rem
-  md: 1.5rem
-  lg: 2rem
-  xl: 3rem
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
   full: 9999px
 spacing:
-  unit: 8px
-  container-padding: 24px
+  base: 8px
+  container-margin: 20px
   gutter: 16px
-  stack-sm: 8px
-  stack-md: 16px
-  stack-lg: 32px
+  stack-sm: 4px
+  stack-md: 12px
+  stack-lg: 24px
 ---
 
 ## Brand & Style
 
-This design system is built on the philosophy of "Bouncy Professionalism." It captures the chaotic energy of a children’s party and organizes it into a seamless, high-end experience for parents and event planners. The visual language balances high-energy playfulness with clean, modern utility to ensure the app remains functional under the pressure of event coordination.
+The brand personality is energetic, reliable, and high-spirited, reflecting the dynamic nature of event production. The design system balances a **Corporate Modern** foundation with **High-Contrast** accents to ensure the UI feels both professional and celebratory.
 
-The style leverages a mix of **Modern / Corporate** structure with **Tactile** details. We utilize organic, "squishy" interaction states, soft depth, and a high-contrast palette to evoke feelings of excitement, celebration, and reliability. Every interaction should feel like a small celebration—rewarding, fluid, and unmistakably joyful.
+The target audience includes corporate clients and private event organizers who require efficiency and creativity. The visual language uses generous whitespace and bold typography to create a sense of organized excitement. The aesthetic is "App-first," optimized for PWA installation with large touch targets and fluid transitions that mimic native mobile experiences.
 
 ## Colors
 
-The palette is anchored by a **Vibrant Purple** that provides a sense of premium magic and authority. This is complemented by **Bright Pink** for high-action touchpoints. **Sunny Yellow** and **Turquoise** act as energetic accents to categorize different event types (e.g., birthdays vs. graduations).
+The palette is anchored by a **Bright Blue** primary, symbolizing trust and digital-native efficiency. 
 
-Backgrounds remain primarily clean white or extremely light tints of the primary purple (`#F5F3FF`) to maintain readability and professional polish. Secondary backgrounds use a soft pink tint to separate content blocks without losing the brand's warmth.
+- **Primary (#3891FF):** Used for main actions, brand identity, and active states.
+- **Secondary (#F43F5E):** A vibrant red-pink for high-energy accents, notifications, and secondary brand marks.
+- **Tertiary (#FBBF24):** A golden yellow used sparingly for "special" moments, ratings, or premium features.
+- **Neutral (#0F172A):** A deep navy-black for high-contrast typography and iconography.
+- **Surface:** The background remains a clean, pure white (#FFFFFF) with very light cool-grey containers (#F8FAFC) to maintain a modern, airy feel.
 
 ## Typography
 
-This design system utilizes **Plus Jakarta Sans** for its friendly, open apertures and modern geometric structure. Its rounded terminals perfectly mirror the "pill" shape language of the components.
+This design system utilizes **Plus Jakarta Sans** for headlines and body text to convey a friendly, geometric, and modern feel. Its soft curves provide the "fun" element requested while maintaining excellent legibility.
 
-Headlines use an ExtraBold weight with tight letter-spacing to create a "chunky" and impactful editorial look. Body text prioritizes legibility with a regular weight and a generous line-height of 1.6x, ensuring that busy parents can scan information quickly. Labels are rendered in SemiBold or Bold to ensure clear hierarchy in data-dense areas like schedules or guest lists.
+**Manrope** is used for labels and technical data to provide a structured, professional counterpoint. Headlines use tight letter-spacing and heavy weights to command attention, while body text is spaced for optimal readability in a mobile-first environment.
 
 ## Layout & Spacing
 
-The layout follows a **Fluid Grid** model with a standard 12-column system for tablet/desktop and a 4-column system for mobile. We use an 8px base grid to maintain rhythmic consistency. 
+The system follows a **Fluid Grid** model optimized for touch devices. 
 
-Margins are intentionally generous (minimum 24px) to avoid a cluttered feel. Elements should feel "airy" and floating. In lists and cards, vertical rhythm is established through a `stack-md` (16px) gap, while related metadata uses `stack-sm` (8px).
+- **Mobile (PWA):** A single-column layout with 20px side margins. Elements are stacked vertically with a preference for bottom-sheet navigation and top-level headers.
+- **Tablet/Desktop:** A 12-column grid. On larger screens, the content width is capped at 1200px to prevent excessive line lengths.
+- **Vertical Rhythm:** Spacing is strictly based on an 8px scale. Component internal padding should favor `16px` (2 units) for a comfortable touch experience.
 
 ## Elevation & Depth
 
-We avoid traditional "grey" shadows. Instead, the design system utilizes **Ambient Shadows**—soft, diffused shadows that are tinted with the primary or secondary color of the element casting them. This creates a vibrant, glowing effect that feels more like a physical object in a brightly lit room than a flat digital UI.
+Visual hierarchy is achieved through **Tonal Layers** and **Ambient Shadows**. Surfaces sit on a flat background, but interactive cards use subtle, highly-diffused shadows with a slight blue tint (`rgba(56, 145, 255, 0.08)`) to suggest lift without looking heavy.
 
-**Depth Layers:**
-- **Level 0 (Floor):** White or light-tinted backgrounds.
-- **Level 1 (Cards):** Low-opacity color-tinted shadow (10% opacity, 20px blur) to suggest a gentle lift.
-- **Level 2 (Interactive/Hover):** Increased shadow spread and slight scale-up (1.02x) to mimic a "bouncy" tactile response.
-- **Level 3 (Modals):** Glassmorphism with a heavy backdrop-blur (20px) and a white semi-transparent overlay to keep focus on the task while maintaining the party's colorful atmosphere in the background.
+Floating Action Buttons (FABs) and navigation bars use a higher elevation to remain accessible over scrolling content. Secondary content containers use light grey borders (1px solid #E2E8F0) rather than shadows to keep the interface clean and "app-like."
 
 ## Shapes
 
-The shape language is defined by **Extreme Roundness (ROUND_FULL)**. Sharp corners are strictly avoided to ensure the UI feels safe, friendly, and approachable for its child-centric context. 
+The design system utilizes **Rounded** shapes to reinforce a friendly and approachable brand image. 
 
-- **Buttons & Chips:** Always 100% pill-shaped.
-- **Cards:** Use `rounded-xl` (1.5rem / 24px) to create a soft, friendly frame for content.
-- **Images:** Profiles use circles; event thumbnails use the same `rounded-xl` as cards.
+- **Base Radius (8px):** Standard for buttons, input fields, and small cards.
+- **Large Radius (16px):** Used for main content containers and imagery.
+- **Pill (Full Radius):** Reserved for tags, chips, and the main "Return" button icons to differentiate them from primary action buttons.
 
 ## Components
 
 ### Buttons
-Primary buttons are pill-shaped with a vibrant purple-to-pink gradient. They utilize a soft, colored drop shadow. On press, they should visually "shrink" slightly to provide haptic-like feedback.
-
-### Cards
-Cards are white with a subtle 1px border in a lighter tint of the primary color. They act as the main containers for events and guest information, using high internal padding (24px) to let content breathe.
+Primary buttons are high-contrast Blue with white text, using a minimum height of 52px for mobile accessibility. Secondary buttons use the Blue as a border color (ghost style).
 
 ### Input Fields
-Inputs feature high-radius corners and a subtle light-gray background. Upon focus, the border transitions to the primary purple with a soft glow (outer shadow). Placeholders are friendly and conversational.
+Inputs feature a light neutral background (#F1F5F9) and 0px border by default, transitioning to a 2px Blue border on focus. Labels are placed above the field in Manrope Bold.
 
-### Chips & Tags
-Used for event categories (e.g., "Outdoor," "Cake Time"). These use high-contrast combinations: light-tint backgrounds with dark-toned text in the same hue (e.g., Turquoise background with deep Teal text).
+### Cards
+Event cards should use the 16px radius. Images within cards should have a slight overlay to ensure text legibility if headlines are placed on top.
 
-### Playful Icons
-Icons should be thick-stroked with rounded ends. Where possible, use "duotone" styles where the secondary color provides a decorative accent to the primary icon shape.
+### Chips & Status
+Status indicators (e.g., "Confirmed," "Pending") use the primary/secondary/tertiary colors with 15% opacity backgrounds and 100% opacity text for a soft, readable look.
 
-### Progress Bars
-Used for "Party Prep" checklists. These are thick, pill-shaped tracks with a vibrant gradient fill to make completing tasks feel rewarding.
+### Navigation
+For PWA optimization, use a fixed bottom navigation bar for primary destinations, and a "back" button in the top left corner as a floating circle with a subtle shadow.

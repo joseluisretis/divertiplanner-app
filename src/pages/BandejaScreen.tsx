@@ -27,10 +27,10 @@ export default function BandejaScreen() {
   });
 
   return (
-    <div className="bg-surface font-body-md text-on-surface selection:bg-primary-container selection:text-white min-h-screen">
+    <div className="bandeja-screen-theme bg-surface-container-low text-on-surface min-h-screen pb-24 overflow-x-hidden">
       <TopAppBar />
 
-      <main className="pt-24 pb-12 px-container-padding max-w-7xl mx-auto">
+      <main className="mt-20 px-container-margin">
         <HeroSearch onOpenFilter={() => setIsFilterOpen(true)} />
         <EventGrid events={filteredEvents} isLoading={isLoading} />
       </main>

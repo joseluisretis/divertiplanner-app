@@ -2,10 +2,10 @@ import type { EventItem } from "../../models/event.model";
 import { useNavigate } from "react-router-dom";
 
 const statusColors: Record<string, string> = {
-  BORRADOR: "bg-slate-200 text-slate-700",
-  PENDIENTE: "bg-amber-100 text-amber-800",
-  "EN PROCESO": "bg-cyan-100 text-cyan-800",
-  TERMINADO: "bg-green-100 text-green-800",
+  BORRADOR: "bg-primary-fixed text-on-primary-fixed",
+  PENDIENTE: "bg-tertiary-fixed text-on-tertiary-fixed",
+  "EN PROCESO": "bg-secondary-fixed text-on-secondary-fixed",
+  TERMINADO: "bg-primary-fixed text-on-primary-fixed",
 };
 
 interface EventCardProps {
@@ -17,37 +17,39 @@ export default function EventCard({ event }: EventCardProps) {
   const isFeatured = event.isFeatured;
   
   return (
-    <div className={`${isFeatured ? "lg:col-span-2 " : ""}group relative overflow-hidden rounded-lg bg-surface-container-lowest border border-primary-fixed-dim ambient-shadow-purple bouncy-hover transition-all duration-300`}>
-      <div className="p-container-padding flex-1 flex flex-col justify-between h-full">
-        <span className={`${statusColors[event.status] || "bg-slate-200 text-slate-700"} px-3 py-1 rounded-full font-label-sm shadow-sm self-start mb-2`}>
+    <article className="bg-surface-container-lowest rounded-[24px] p-stack-lg border border-outline-variant/30 shadow-[0_4px_24px_rgba(56,145,255,0.06)] relative overflow-hidden transition-all hover:translate-y-[-4px]">
+      <div className="flex justify-between items-start mb-stack-md">
+        <span className={`${statusColors[event.status] || "bg-primary-fixed text-on-primary-fixed"} px-3 py-1 rounded-full text-label-md font-label-md uppercase tracking-wider`}>
           {event.status}
         </span>
-        <div className="flex justify-between items-center mb-stack-sm">
-          <h3 className="font-h3 text-h3 text-on-background">{event.title}</h3>
-        </div>
-        <div className="space-y-stack-sm mb-stack-md flex-1">
-          <div className="flex items-center gap-2 text-on-surface-variant">
-            <span className="material-symbols-outlined text-[20px]">person</span>
-            <span className="font-label-md">{event.customerName}</span>
-          </div>
-          <div className="flex items-center gap-2 text-on-surface-variant">
-            <span className="material-symbols-outlined text-[20px]">calendar_today</span>
-            <span className="font-label-md">{event.dateStr}</span>
-          </div>
-          <div className="flex items-center gap-2 text-on-surface-variant">
-            <span className="material-symbols-outlined text-[20px]">location_on</span>
-            <span className="font-label-md">{event.location}</span>
-          </div>
-        </div>
-        <div className="flex gap-stack-sm mt-auto">
-          <button 
-            onClick={() => navigate(`/event/${event.id}`)}
-            className="flex-1 py-3 px-6 bg-gradient-to-r from-primary to-secondary text-on-primary rounded-full font-label-md bouncy-press shadow-lg shadow-primary/20"
-          >
-            Ver detalles
-          </button>
+        <div className="bg-surface-container-high rounded-full p-2">
+          <span className="material-symbols-outlined text-primary">celebration</span>
         </div>
       </div>
-    </div>
+      <h3 className="font-headline-lg-mobile text-on-surface mb-stack-md leading-tight text-[20px] font-bold">
+        {event.title}
+      </h3>
+      <div className="space-y-base mb-stack-lg">
+        <div className="flex items-center gap-stack-md text-on-surface-variant">
+          <span className="material-symbols-outlined text-[20px]">person</span>
+          <span className="text-label-md font-label-md">{event.customerName}</span>
+        </div>
+        <div className="flex items-center gap-stack-md text-on-surface-variant">
+          <span className="material-symbols-outlined text-[20px]">calendar_month</span>
+          <span className="text-label-md font-label-md">{event.dateStr}</span>
+        </div>
+        <div className="flex items-center gap-stack-md text-on-surface-variant">
+          <span className="material-symbols-outlined text-[20px]">location_on</span>
+          <span className="text-label-md font-label-md">{event.location}</span>
+        </div>
+      </div>
+      <button
+        onClick={() => navigate(`/event/${event.id}`)}
+        className="w-full py-4 bg-transparent border border-primary text-primary rounded-xl text-button font-button flex items-center justify-center gap-2 transition-all active:scale-[0.98] hover:bg-primary-fixed-dim/20"
+      >
+        Ver detalles
+        <span className="material-symbols-outlined">arrow_forward</span>
+      </button>
+    </article>
   );
 }
