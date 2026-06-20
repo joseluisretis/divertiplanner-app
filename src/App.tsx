@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "sonner";
 import LoginScreen from "./pages/LoginScreen";
 import BandejaScreen from "./pages/BandejaScreen";
 import EventRegisterScreen from "./pages/EventRegisterScreen";
@@ -9,7 +10,9 @@ function App() {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <Routes>
+    <>
+      <Toaster position="top-center" richColors />
+      <Routes>
       <Route
         path="/"
         element={
@@ -36,7 +39,8 @@ function App() {
         path="/event/:id/edit"
         element={isAuthenticated ? <EventRegisterScreen /> : <Navigate to="/login" />}
       />
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
