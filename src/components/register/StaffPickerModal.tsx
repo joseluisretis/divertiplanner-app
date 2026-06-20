@@ -19,7 +19,12 @@ interface StaffPickerModalProps {
   onClose: () => void;
 }
 
-export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose }: StaffPickerModalProps) {
+export default function StaffPickerModal({
+  isOpen,
+  alreadyAdded,
+  onAdd,
+  onClose,
+}: StaffPickerModalProps) {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState("");
@@ -43,35 +48,70 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
   const canAdd = selectedId !== "" && eventRole !== "";
   const selectedEmployee = employees.find((e) => e.id === selectedId);
   const filtered = employees.filter((e) =>
-    e.name.toLowerCase().includes(search.toLowerCase())
+    e.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleAdd = () => {
     if (!selectedEmployee || !eventRole) return;
-    onAdd({ employeeId: selectedEmployee.id, name: selectedEmployee.name, eventRole });
+    onAdd({
+      employeeId: selectedEmployee.id,
+      name: selectedEmployee.name,
+      eventRole,
+    });
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
       <div className="relative bg-surface-container-lowest rounded-2xl border border-primary-fixed-dim ambient-shadow-primary w-full max-w-md max-h-[80vh] flex flex-col">
         <div className="flex items-center justify-between p-container-padding border-b border-primary-fixed-dim">
           <div className="flex items-center gap-stack-sm">
-            <span className="material-symbols-outlined text-secondary">person_add</span>
-            <h3 className="font-h3 text-h3 text-on-background">Agregar Personal</h3>
+            <span className="material-symbols-outlined text-secondary">
+              person_add
+            </span>
+            <h3 className="font-h3 text-h3 text-on-background">
+              Agregar Personal
+            </h3>
           </div>
-          <button onClick={onClose} className="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">
+          <button
+            onClick={onClose}
+            className="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors"
+          >
             close
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-container-padding space-y-stack-md">
           <div>
-            <p className="font-label-md text-on-surface-variant mb-stack-sm px-1">Selecciona un empleado</p>
+            <label className="font-label-md text-on-surface-variant mb-1 block px-1">
+              Cargo en el evento
+            </label>
+            <select
+              value={eventRole}
+              onChange={(e) => setEventRole(e.target.value)}
+              className="w-full bg-surface-container border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary-container transition-all font-body-md text-on-surface-variant"
+            >
+              <option value="">Seleccionar cargo...</option>
+              {EVENT_ROLES.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <p className="font-label-md text-on-surface-variant mb-stack-sm px-1">
+              Selecciona un empleado
+            </p>
             <div className="flex items-center gap-2 bg-surface-container rounded-DEFAULT px-3 mb-stack-sm">
-              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">search</span>
+              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
+                search
+              </span>
               <input
                 type="text"
                 placeholder="Buscar empleado..."
@@ -80,20 +120,27 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
                 className="flex-1 bg-transparent border-none py-2.5 font-body-md text-on-surface placeholder:text-outline-variant focus:outline-none"
               />
               {search && (
-                <button onClick={() => setSearch("")} className="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-on-surface transition-colors">
+                <button
+                  onClick={() => setSearch("")}
+                  className="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-on-surface transition-colors"
+                >
                   close
                 </button>
               )}
             </div>
             {isLoading ? (
               <div className="flex items-center justify-center py-8 text-on-surface-variant">
-                <span className="material-symbols-outlined animate-spin mr-2">progress_activity</span>
+                <span className="material-symbols-outlined animate-spin mr-2">
+                  progress_activity
+                </span>
                 Cargando...
               </div>
             ) : (
               <div className="space-y-2">
                 {filtered.length === 0 && (
-                  <p className="text-center text-on-surface-variant font-body-md py-4">Sin resultados.</p>
+                  <p className="text-center text-on-surface-variant font-body-md py-4">
+                    Sin resultados.
+                  </p>
                 )}
                 {filtered.map((emp) => {
                   const isAdded = alreadyAdded.includes(emp.id);
@@ -107,40 +154,38 @@ export default function StaffPickerModal({ isOpen, alreadyAdded, onAdd, onClose 
                         isAdded
                           ? "opacity-40 cursor-not-allowed bg-surface-container"
                           : isSelected
-                          ? "bg-primary-container/30 border-2 border-primary"
-                          : "bg-surface-container hover:bg-surface-container-high border-2 border-transparent"
+                            ? "bg-primary-container/30 border-2 border-primary"
+                            : "bg-surface-container hover:bg-surface-container-high border-2 border-transparent"
                       }`}
                     >
                       <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                        <span className="material-symbols-outlined text-[18px]">person</span>
+                        <span className="material-symbols-outlined text-[18px]">
+                          person
+                        </span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-label-md text-on-surface truncate">{emp.name}</p>
-                        <p className="text-xs text-on-surface-variant">{emp.role}</p>
+                        <p className="font-label-md text-on-surface truncate">
+                          {emp.name}
+                        </p>
+                        <p className="text-xs text-on-surface-variant">
+                          {emp.role}
+                        </p>
                       </div>
-                      {isAdded && <span className="text-xs text-on-surface-variant">Ya agregado</span>}
+                      {isAdded && (
+                        <span className="text-xs text-on-surface-variant">
+                          Ya agregado
+                        </span>
+                      )}
                       {isSelected && !isAdded && (
-                        <span className="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        <span className="material-symbols-outlined text-primary text-[18px]">
+                          check_circle
+                        </span>
                       )}
                     </button>
                   );
                 })}
               </div>
             )}
-          </div>
-
-          <div>
-            <label className="font-label-md text-on-surface-variant mb-1 block px-1">Cargo en el evento</label>
-            <select
-              value={eventRole}
-              onChange={(e) => setEventRole(e.target.value)}
-              className="w-full bg-surface-container border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary-container transition-all font-body-md text-on-surface-variant"
-            >
-              <option value="">Seleccionar cargo...</option>
-              {EVENT_ROLES.map((r) => (
-                <option key={r} value={r}>{r}</option>
-              ))}
-            </select>
           </div>
         </div>
 
